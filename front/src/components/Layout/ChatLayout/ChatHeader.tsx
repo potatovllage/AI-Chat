@@ -26,6 +26,7 @@ const ChatHeader = () => {
       sx={{
         backgroundColor: "#ffffff",
         color: "#000",
+        borderBottom: "1px solid #eee",
       }}
     >
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
