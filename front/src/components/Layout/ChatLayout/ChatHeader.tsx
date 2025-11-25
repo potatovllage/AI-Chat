@@ -41,7 +41,7 @@ const ChatHeader = () => {
           }}
           onClick={() => navigate("/characters")}
         >
-          MY STAFF
+          AIDE
         </Typography>
 
         {/* RIGHT: 로그인 여부 판단 후 프로필 노출 */}

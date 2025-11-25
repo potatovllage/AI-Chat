@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import ChatMessages from "./ChatMessage";
 import ChatInput from "./ChatInput";
 
-const Chatting = () => {
+const ChattingRoom = () => {
   return (
     <Box
       sx={{
@@ -35,4 +35,4 @@ const Chatting = () => {
   );
 };
 
-export default Chatting;
+export default ChattingRoom;

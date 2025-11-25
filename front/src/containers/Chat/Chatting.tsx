@@ -1,9 +1,9 @@
 import { Box, Container } from "@mui/material";
-import ChatHeader from "../components/Layout/ChatLayout/ChatHeader";
-import ChatSide from "../components/Layout/ChatLayout/ChatSide";
-import Chatting from "../components/Chat/Chatting";
+import ChatHeader from "../../components/Layout/ChatLayout/ChatHeader";
+import ChatSide from "../../components/Layout/ChatLayout/ChatSide";
+import ChattingRoom from "../../components/Chat/ChattingRoom";
 
-const ChatPage = () => {
+const Chatting = () => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100dvh" }}>
       {/* Header */}
@@ -20,11 +20,11 @@ const ChatPage = () => {
             py: 2,
           }}
         >
-          <Chatting />
+          <ChattingRoom />
         </Container>
       </Box>
     </Box>
   );
 };
 
-export default ChatPage;
+export default Chatting;

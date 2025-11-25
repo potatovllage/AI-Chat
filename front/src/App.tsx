@@ -1,7 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { GlobalStyles } from "@mui/material";
-import ChatPage from "./pages/ChatPage";
+import ChatPage from "./pages/Chat/ChatPage";
+import LoginPage from "./pages/Auth/LoginPage";
+import SignUpPage from "./pages/Auth/SignUpPage";
 
 function App() {
   return (
@@ -10,6 +12,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ChatPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
         </Routes>
       </BrowserRouter>
     </>
