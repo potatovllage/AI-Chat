@@ -54,6 +54,21 @@ const ChatSide = () => {
 
       {/* Chat List */}
       <Box sx={{ flexGrow: 1, overflowY: "auto" }}>
+        <Box
+          sx={{
+            p: 2,
+            cursor: "pointer",
+            color: "#555",
+            fontWeight: 600,
+            fontSize: "15px",
+            borderBottom: "1px solid #eee",
+            "&:hover": {
+              backgroundColor: "#f5f5f5",
+            },
+          }}
+        >
+          ➕ 새 캐릭터 생성하기
+        </Box>
         <List>
           {chatList.length === 0 ? (
             <Typography variant="body2" color="text.secondary" sx={{ p: 2 }}>

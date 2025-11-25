@@ -1,40 +1,50 @@
-import { TextField, IconButton, Paper } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
 import { useState } from "react";
+import { Box, TextField, IconButton, Typography } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 
-const ChatInput = () => {
+interface Props {
+  activeCharacterId: string;
+  onSend: (message: string) => void;
+}
+
+const ChatInput = ({ activeCharacterId, onSend }: Props) => {
   const [value, setValue] = useState("");
+  const maxLength = 200;
 
   const handleSend = () => {
     if (!value.trim()) return;
-    console.log("Sent:", value);
+    if (value.length > maxLength) return;
+
+    onSend(value.trim());
     setValue("");
   };
 
   return (
-    <Paper
-      elevation={0}
-      sx={{
-        p: 1,
-        display: "flex",
-        alignItems: "center",
-        borderRadius: 2,
-        border: "1px solid #ddd",
-      }}
-    >
+    <Box>
       <TextField
-        variant="standard"
         fullWidth
+        multiline
+        maxRows={4}
         placeholder="메시지를 입력하세요..."
         value={value}
-        onChange={(e) => setValue(e.target.value)}
-        InputProps={{ disableUnderline: true }}
+        onChange={(e) => setValue(e.target.value.slice(0, maxLength))}
+        InputProps={{
+          endAdornment: (
+            <IconButton color="primary" onClick={handleSend}>
+              <SendIcon />
+            </IconButton>
+          ),
+        }}
       />
 
-      <IconButton color="primary" onClick={handleSend}>
-        <SendIcon />
-      </IconButton>
-    </Paper>
+      <Typography
+        variant="caption"
+        sx={{ display: "block", textAlign: "right", mt: 0.5 }}
+        color={value.length >= maxLength ? "error" : "text.secondary"}
+      >
+        {value.length} / {maxLength}
+      </Typography>
+    </Box>
   );
 };
 
