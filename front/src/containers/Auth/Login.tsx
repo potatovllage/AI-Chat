@@ -2,9 +2,12 @@ import { useState } from "react";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import PasswordField from "../../components/Auth/PasswordField";
+import { useLogin } from "../../hooks/useLogin";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { mutate: login } = useLogin();
+
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
 
@@ -20,24 +23,22 @@ const Login = () => {
 
   const canLogin = isEmailValid && isPwValid;
 
-  const handleLogin = async () => {
-    if (!canLogin) return alert("이메일 또는 비밀번호 형식을 확인해주세요.");
+  const handleLogin = () => {
+    login(
+      { email, password: pw },
+      {
+        onSuccess: (data) => {
+          // 토큰 저장
+          localStorage.setItem("token", data.token);
 
-    const res = await fetch("http://localhost:4000/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password: pw }),
-    });
-
-    if (!res.ok) return alert("로그인 실패");
-
-    const data = await res.json();
-
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("username", data.user.name);
-    localStorage.setItem("email", data.user.email);
-
-    navigate("/");
+          alert("로그인 성공!");
+          navigate("/");
+        },
+        onError: (err) => {
+          alert(err.message);
+        },
+      }
+    );
   };
 
   return (

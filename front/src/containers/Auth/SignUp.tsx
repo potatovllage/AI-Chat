@@ -2,9 +2,11 @@ import { useState } from "react";
 import { TextField, Button, Typography, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import PasswordField from "../../components/Auth/PasswordField";
+import { useSignup } from "../../hooks/useSignUp";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const { mutate: signup } = useSignup();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,23 +24,24 @@ const Signup = () => {
   const isPwValid = pwRegex.test(pw);
   const isPwMatch = pw === pwConfirm;
 
-  const handleSignup = async () => {
-    if (!isEmailValid) return alert("올바른 이메일 형식이 아닙니다.");
+  const handleSignup = () => {
+    if (!isEmailValid) return alert("올바른 이메일을 입력해주세요.");
     if (!isPwValid) return alert("비밀번호 조건을 확인해주세요.");
     if (!isPwMatch) return alert("비밀번호가 일치하지 않습니다.");
 
-    const res = await fetch("http://localhost:4000/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password: pw }),
-    });
-
-    if (!res.ok) return alert("회원가입 실패");
-
-    alert("회원가입 성공! 로그인해주세요.");
-    navigate("/login");
+    signup(
+      { name, email, password: pw },
+      {
+        onSuccess: () => {
+          alert("회원가입 성공! 로그인해주세요.");
+          navigate("/login");
+        },
+        onError: (err) => {
+          alert(err.message || "회원가입 실패");
+        },
+      }
+    );
   };
-
   return (
     <Box
       sx={{
