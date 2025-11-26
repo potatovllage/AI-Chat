@@ -1,9 +1,10 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type {
   CreateCharacterInput,
   CreateCharacterResponse,
+  GetCharactersResponse,
 } from "../types/api/chracter";
-import { createCharacterApi } from "../api/character";
+import { createCharacterApi, getCharactersApi } from "../api/character";
 
 export const useCreateCharacter = () => {
   const qc = useQueryClient();
@@ -13,5 +14,12 @@ export const useCreateCharacter = () => {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["characters"] });
     },
+  });
+};
+
+export const useCharacters = () => {
+  return useQuery<GetCharactersResponse>({
+    queryKey: ["characters"],
+    queryFn: getCharactersApi,
   });
 };

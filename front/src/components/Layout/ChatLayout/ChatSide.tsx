@@ -1,20 +1,9 @@
-import {
-  Box,
-  Typography,
-  Divider,
-  List,
-  ListItemButton,
-  ListItemText,
-  Paper,
-} from "@mui/material";
+import { Box, Typography, Divider, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import CreateChracterButton from "../../Character/CreateChracterButton";
+import CreateChracterButton from "../../Character/create/CreateChracterButton";
 import { useUser } from "../../../hooks/useAuth";
-
-interface ChatItem {
-  id: string;
-  title: string;
-}
+import CharacterList from "../../Character/CharacterList";
+import { useCharacters } from "../../../hooks/useCharactor";
 
 const ChatSide = () => {
   const navigate = useNavigate();
@@ -23,15 +12,7 @@ const ChatSide = () => {
   const token = localStorage.getItem("token");
 
   const { data: userData } = useUser();
-
-  const conversations = JSON.parse(
-    localStorage.getItem("conversations") || "{}"
-  ) as Record<string, unknown>;
-
-  const chatList: ChatItem[] = Object.keys(conversations).map((id) => ({
-    id,
-    title: `캐릭터 ${id} 대화`,
-  }));
+  const { data } = useCharacters();
 
   return (
     <Paper
@@ -58,22 +39,7 @@ const ChatSide = () => {
       {/* Chat List */}
       <Box sx={{ flexGrow: 1, overflowY: "auto" }}>
         <CreateChracterButton />
-        <List>
-          {chatList.length === 0 ? (
-            <Typography variant="body2" color="text.secondary" sx={{ p: 2 }}>
-              저장된 대화가 없습니다.
-            </Typography>
-          ) : (
-            chatList.map((chat) => (
-              <ListItemButton
-                key={chat.id}
-                onClick={() => navigate(`/chat/${chat.id}`)}
-              >
-                <ListItemText primary={chat.title} />
-              </ListItemButton>
-            ))
-          )}
-        </List>
+        <CharacterList characters={data?.characters ?? []} />
       </Box>
 
       <Divider />

@@ -9,7 +9,7 @@ import {
   Box,
   Avatar,
 } from "@mui/material";
-import { useCreateCharacter } from "../../hooks/useCharactor";
+import { useCreateCharacter } from "../../../hooks/useCharactor";
 
 interface Props {
   open: boolean;
