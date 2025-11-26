@@ -6,6 +6,7 @@ import {
   ListItemButton,
   ListItemText,
   Paper,
+  Button,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -54,9 +55,10 @@ const ChatSide = () => {
 
       {/* Chat List */}
       <Box sx={{ flexGrow: 1, overflowY: "auto" }}>
-        <Box
+        <Button
           sx={{
             p: 2,
+            width: "100%",
             cursor: "pointer",
             color: "#555",
             fontWeight: 600,
@@ -66,9 +68,16 @@ const ChatSide = () => {
               backgroundColor: "#f5f5f5",
             },
           }}
+          onClick={() => {
+            if (!token) {
+              navigate("/login");
+            } else {
+              console.log("캐릭터 생성");
+            }
+          }}
         >
           ➕ 새 캐릭터 생성하기
-        </Box>
+        </Button>
         <List>
           {chatList.length === 0 ? (
             <Typography variant="body2" color="text.secondary" sx={{ p: 2 }}>

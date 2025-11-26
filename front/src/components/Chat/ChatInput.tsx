@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type KeyboardEvent } from "react";
 import { Box, TextField, IconButton, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
@@ -10,6 +10,24 @@ interface Props {
 const ChatInput = ({ activeCharacterId, onSend }: Props) => {
   const [value, setValue] = useState("");
   const maxLength = 200;
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    // Enter + Shift → 줄바꿈 허용
+    if (e.key === "Enter" && e.shiftKey) {
+      return;
+    }
+
+    // Enter 단독 → 메시지 전송
+    if (e.key === "Enter") {
+      if (value === "") {
+        e.preventDefault();
+        return;
+      }
+
+      e.preventDefault(); // 기본 줄바꿈 방지
+      handleSend();
+    }
+  };
 
   const handleSend = () => {
     if (!value.trim()) return;
@@ -28,12 +46,15 @@ const ChatInput = ({ activeCharacterId, onSend }: Props) => {
         placeholder="메시지를 입력하세요..."
         value={value}
         onChange={(e) => setValue(e.target.value.slice(0, maxLength))}
-        InputProps={{
-          endAdornment: (
-            <IconButton color="primary" onClick={handleSend}>
-              <SendIcon />
-            </IconButton>
-          ),
+        onKeyDown={handleKeyDown}
+        slotProps={{
+          input: {
+            endAdornment: (
+              <IconButton color="primary" onClick={handleSend}>
+                <SendIcon />
+              </IconButton>
+            ),
+          },
         }}
       />
 
