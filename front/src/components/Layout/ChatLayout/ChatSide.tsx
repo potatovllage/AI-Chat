@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CreateChracterButton from "../../Character/CreateChracterButton";
+import { useUser } from "../../../hooks/useAuth";
 
 interface ChatItem {
   id: string;
@@ -20,6 +21,8 @@ const ChatSide = () => {
 
   // 로그인 여부 판단
   const token = localStorage.getItem("token");
+
+  const { data: userData } = useUser();
 
   const conversations = JSON.parse(
     localStorage.getItem("conversations") || "{}"
@@ -92,7 +95,7 @@ const ChatSide = () => {
               프로필
             </Typography>
             <Typography variant="subtitle1" fontWeight={600}>
-              OOO
+              {userData?.name}
             </Typography>
           </Box>
         )}

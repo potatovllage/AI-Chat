@@ -2,7 +2,7 @@ import { useState } from "react";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import PasswordField from "../../components/Auth/PasswordField";
-import { useLogin } from "../../hooks/useLogin";
+import { useLogin } from "../../hooks/useAuth";
 
 const Login = () => {
   const navigate = useNavigate();

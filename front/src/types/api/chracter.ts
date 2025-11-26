@@ -20,3 +20,7 @@ export interface CreateCharacterResponse {
   message: string;
   character: Character;
 }
+
+export interface GetCharactersResponse {
+  characters: Character[];
+}

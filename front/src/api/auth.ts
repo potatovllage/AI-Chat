@@ -5,6 +5,7 @@ import type {
   SignupResponse,
   LoginInput,
   LoginResponse,
+  UserProfileResponse,
 } from "../types/api/auth";
 
 export const signupApi = async (data: SignupInput): Promise<SignupResponse> => {
@@ -29,4 +30,9 @@ export const loginApi = async (data: LoginInput): Promise<LoginResponse> => {
     }
     throw new Error("알 수 없는 오류가 발생했습니다.");
   }
+};
+
+export const getUserApi = async (): Promise<UserProfileResponse> => {
+  const res = await axiosInstance.get("/auth/me");
+  return res.data;
 };

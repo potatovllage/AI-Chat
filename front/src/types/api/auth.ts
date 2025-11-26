@@ -26,3 +26,9 @@ export interface LoginResponse {
     email: string;
   };
 }
+
+export interface UserProfileResponse {
+  id: string;
+  name: string;
+  email: string;
+}
