@@ -1,11 +1,13 @@
 import axios from "axios";
 import axiosInstance from "../lib/axios";
+import type {
+  SignupInput,
+  SignupResponse,
+  LoginInput,
+  LoginResponse,
+} from "../types/api/auth";
 
-export const signupApi = async (data: {
-  name: string;
-  email: string;
-  password: string;
-}) => {
+export const signupApi = async (data: SignupInput): Promise<SignupResponse> => {
   try {
     const res = await axiosInstance.post("/auth/signup", data);
     return res.data;
@@ -17,7 +19,7 @@ export const signupApi = async (data: {
   }
 };
 
-export const loginApi = async (data: { email: string; password: string }) => {
+export const loginApi = async (data: LoginInput): Promise<LoginResponse> => {
   try {
     const res = await axiosInstance.post("/auth/login", data);
     return res.data; // 성공 → 토큰 + 유저 정보

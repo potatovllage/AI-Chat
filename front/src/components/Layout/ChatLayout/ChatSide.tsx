@@ -6,9 +6,9 @@ import {
   ListItemButton,
   ListItemText,
   Paper,
-  Button,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import CreateChracterButton from "../../Character/CreateChracterButton";
 
 interface ChatItem {
   id: string;
@@ -20,7 +20,6 @@ const ChatSide = () => {
 
   // 로그인 여부 판단
   const token = localStorage.getItem("token");
-  const username = localStorage.getItem("username");
 
   const conversations = JSON.parse(
     localStorage.getItem("conversations") || "{}"
@@ -55,29 +54,7 @@ const ChatSide = () => {
 
       {/* Chat List */}
       <Box sx={{ flexGrow: 1, overflowY: "auto" }}>
-        <Button
-          sx={{
-            p: 2,
-            width: "100%",
-            cursor: "pointer",
-            color: "#555",
-            fontWeight: 600,
-            fontSize: "15px",
-            borderBottom: "1px solid #eee",
-            "&:hover": {
-              backgroundColor: "#f5f5f5",
-            },
-          }}
-          onClick={() => {
-            if (!token) {
-              navigate("/login");
-            } else {
-              console.log("캐릭터 생성");
-            }
-          }}
-        >
-          ➕ 새 캐릭터 생성하기
-        </Button>
+        <CreateChracterButton />
         <List>
           {chatList.length === 0 ? (
             <Typography variant="body2" color="text.secondary" sx={{ p: 2 }}>
@@ -110,12 +87,12 @@ const ChatSide = () => {
             로그인을 해주세요
           </Typography>
         ) : (
-          <Box>
-            <Typography variant="subtitle1" fontWeight={600}>
-              {username}
-            </Typography>
+          <Box style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <Typography variant="body2" color="text.secondary">
               프로필
+            </Typography>
+            <Typography variant="subtitle1" fontWeight={600}>
+              OOO
             </Typography>
           </Box>
         )}
