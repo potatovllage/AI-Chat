@@ -2,12 +2,7 @@ import { useState, type KeyboardEvent } from "react";
 import { Box, TextField, IconButton, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
-interface Props {
-  activeCharacterId: string;
-  onSend: (message: string) => void;
-}
-
-const ChatInput = ({ activeCharacterId, onSend }: Props) => {
+const ChatInput = () => {
   const [value, setValue] = useState("");
   const maxLength = 200;
 
@@ -33,7 +28,7 @@ const ChatInput = ({ activeCharacterId, onSend }: Props) => {
     if (!value.trim()) return;
     if (value.length > maxLength) return;
 
-    onSend(value.trim());
+    // onSend(value.trim());
     setValue("");
   };
 

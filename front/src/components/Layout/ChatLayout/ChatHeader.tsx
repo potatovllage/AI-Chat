@@ -15,7 +15,7 @@ const ChatHeader = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
-    navigate("/login");
+    navigate("/");
   };
 
   return (
