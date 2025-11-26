@@ -33,7 +33,7 @@ const ChatInput = () => {
   };
 
   return (
-    <Box>
+    <Box width="100%">
       <TextField
         fullWidth
         multiline

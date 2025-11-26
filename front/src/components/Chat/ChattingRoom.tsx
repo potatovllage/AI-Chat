@@ -2,12 +2,10 @@ import { Box } from "@mui/material";
 import ChatMessages from "./ChatMessage";
 import ChatInput from "./ChatInput";
 import EmptyChatLayout from "../Layout/ChatLayout/EmptyChatLayout";
-import { useCharacterStore } from "../../store/CharacterStore";
+import { useParams } from "react-router-dom";
 
 const ChattingRoom = () => {
-  const activeCharacterId = useCharacterStore(
-    (state) => state.activeCharacterId
-  );
+  const { characterId } = useParams();
   const token = localStorage.getItem("token");
 
   // 로그인되지 않은 상태
@@ -16,11 +14,11 @@ const ChattingRoom = () => {
   }
 
   // 캐릭터 선택되지 않은 상태
-  if (!activeCharacterId) {
+  if (!characterId) {
     return (
       <EmptyChatLayout
         message="대화를 시작할 캐릭터를 선택해주세요"
-        showInput={true}
+        showInput={false}
       />
     );
   }
@@ -30,6 +28,8 @@ const ChattingRoom = () => {
       sx={{
         display: "flex",
         flexDirection: "column",
+        width: "100%",
+        maxWidth: "800px",
         height: "100%",
       }}
     >
@@ -47,8 +47,10 @@ const ChattingRoom = () => {
       {/* 입력창 영역 */}
       <Box
         sx={{
-          borderTop: "1px solid #e0e0e0",
+          width: "100%",
           padding: 2,
+          display: "flex",
+          justifyContent: "center",
         }}
       >
         <ChatInput />

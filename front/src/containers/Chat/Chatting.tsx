@@ -15,7 +15,10 @@ const Chatting = () => {
         </Box>
         <Container
           sx={{
-            flexGrow: 1,
+            maxWidth: "800px",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
             overflowY: "auto",
             py: 2,
           }}

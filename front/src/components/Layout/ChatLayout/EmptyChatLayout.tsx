@@ -10,6 +10,8 @@ const EmptyChatLayout = ({ message, showInput = true }: Props) => {
   return (
     <Box
       display="flex"
+      width="100%"
+      maxWidth="800px"
       height="100%"
       flexDirection="column"
       justifyContent="center"
@@ -24,11 +26,7 @@ const EmptyChatLayout = ({ message, showInput = true }: Props) => {
       </Typography>
 
       {/* 가운데 정렬된 ChatGPT 스타일 입력창 */}
-      {showInput && (
-        <Box width="100%" maxWidth="600px">
-          <ChatInput />
-        </Box>
-      )}
+      {showInput && <ChatInput />}
     </Box>
   );
 };

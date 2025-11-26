@@ -18,6 +18,7 @@ function App() {
             <Route path="/" element={<ChatPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/chat/:characterId" element={<ChatPage />} />
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>

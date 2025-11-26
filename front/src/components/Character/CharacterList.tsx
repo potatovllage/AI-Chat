@@ -11,16 +11,19 @@ import {
 } from "@mui/material";
 import type { Character } from "../../types/api/chracter";
 import { useCharacterStore } from "../../store/CharacterStore";
+import { useNavigate } from "react-router-dom";
 
 interface CharacterListProps {
   characters: Character[];
 }
 
 const CharacterList = ({ characters }: CharacterListProps) => {
+  const navigate = useNavigate();
+
   const systemCharacters = characters.filter((c) => c.owner === "system");
   const userCharacters = characters.filter((c) => c.owner !== "system");
 
-  const { activeCharacterId, setActiveCharacterId } = useCharacterStore();
+  const { activeCharacterId } = useCharacterStore();
 
   const renderSection = (title: string, list: Character[]) => {
     if (list.length === 0) return null;
@@ -45,7 +48,9 @@ const CharacterList = ({ characters }: CharacterListProps) => {
           <ListItemButton
             key={character.id}
             selected={activeCharacterId === character.id}
-            onClick={() => setActiveCharacterId(character.id)}
+            onClick={() => {
+              navigate(`/chat/${character.id}`);
+            }}
             sx={{
               borderRadius: 1,
               mb: 0.5,
