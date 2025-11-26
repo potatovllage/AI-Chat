@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import fs from "fs";
 import path from "path";
+import { authMiddleware } from "../middleware/authMiddleware";
 
 const router = Router();
 
@@ -66,6 +67,22 @@ router.post("/login", async (req, res) => {
       name: user.name,
       email: user.email,
     },
+  });
+});
+
+router.get("/me", authMiddleware, (req: any, res) => {
+  const db = readDB();
+  const userId = req.user.id;
+
+  const user = db.users.find((u: any) => u.id === userId);
+  if (!user) {
+    return res.status(404).json({ message: "유저를 찾을 수 없습니다." });
+  }
+
+  return res.json({
+    id: user.id,
+    name: user.name,
+    email: user.email,
   });
 });
 
